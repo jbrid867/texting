@@ -14,23 +14,24 @@ function kelvinToFahrenheit(input) {
 
 request("http://api.openweathermap.org/data/2.5/weather?q="+currentCity+","+countryCode.toLowerCase()+"", function(error, response, body) {
 
-        // The contents of this function
-        // will fire on a successful GET.
-        console.log("Got the weather");
-        weatherData = JSON.parse(body);
-        city = weatherData.name;
-        temp = kelvinToFahrenheit(weatherData.main.temp);
-        high = kelvinToFahrenheit(weatherData.main.temp_max);
-        low = kelvinToFahrenheit(weatherData.main.temp_min);
-        description = weatherData.weather[0].description;
-    });
-});
+    // The contents of this function
+    // will fire on a successful GET.
+    console.log("Got the weather");
+    weatherData = JSON.parse(body);
+    city = weatherData.name;
+    temp = kelvinToFahrenheit(weatherData.main.temp);
+    high = kelvinToFahrenheit(weatherData.main.temp_max);
+    low = kelvinToFahrenheit(weatherData.main.temp_min);
+    description = weatherData.weather[0].description;
 
-client.messages.create({
-	body: "what now?",
+    client.messages.create({
+	body: description+" and "+temp+" degrees farenheit",
 	to: "+15402720604",
 	from: "+15712618878",
 
-}, function(err,message){
-	process.stdout.write(message.sid);
+	}, function(err,message){
+		process.stdout.write(message.sid);
+	});
 });
+
+
